@@ -9,6 +9,7 @@ function checkLength (string) {
   }
   return true;
 }
+checkLength();
 
 //Функция для проверки, является ли строка палиндромом.
 
@@ -23,6 +24,7 @@ function checkPalindrome (str) {
   }
   return true;
 }
+checkPalindrome();
 
 //Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 
@@ -33,7 +35,7 @@ function getNumber (str) {
   }
   return str.replace(/\D/g,'');
 }
-
+getNumber();
 
 //Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины.
 function formNewString () {
@@ -43,5 +45,5 @@ function formNewString () {
 
   return str.padStart(length, padString);
 }
-
+formNewString();
 

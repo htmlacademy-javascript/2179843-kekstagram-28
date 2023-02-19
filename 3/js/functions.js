@@ -1,9 +1,6 @@
 //Функция для проверки длины строки.
 
-function checkLength (string) {
-
-  const limit = 20;
-
+function checkLength (string, limit) {
   if (string.length > limit) {
     return false;
   }
@@ -38,12 +35,15 @@ function getNumber (str) {
 getNumber();
 
 //Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины.
-function formNewString () {
-  const str = 'hello';
-  const length = 7;
-  const padString = '1234';
-
-  return str.padStart(length, padString);
+function formNewString (str, maxLength, padString) {
+  if (str.length >= maxLength) {
+    return str;
+  } else {
+    while (str.length < maxLength) {
+      str = padString.slice(0, maxLength - str.length) + str;
+    }
+    return str;
+  }
 }
-formNewString();
 
+formNewString();

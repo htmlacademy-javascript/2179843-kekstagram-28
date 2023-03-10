@@ -47,7 +47,7 @@ const NAMES = [
   'Алина',
   'Ева',
   'Виталий',
-  'Макисм',
+  'Максим',
   'Александр',
   'Соня',
   'Валерия',
@@ -55,26 +55,26 @@ const NAMES = [
   'Петр',
 ];
 
-const IDS = Array.from({length: SIMILAR_PHOTO_COUNT}, generatePhotoId);
-const COMMENTS_IDS = Array.from({length: SIMILAR_PHOTO_COUNT}, generateCommentId);
+const ids = Array.from({length: SIMILAR_PHOTO_COUNT}, generatePhotoId);
+const commentsIds = Array.from({length: SIMILAR_PHOTO_COUNT}, generateCommentId);
 
 const createComment = () => ({
-  id: getRandomArrayElement(COMMENTS_IDS),
+  id: getRandomArrayElement(commentsIds),
   avatar: `img/avatar-${ getRandomArrayElement(AVATARS) }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
-const COMMENTS = Array.from({length: SIMILAR_PHOTO_COUNT}, createComment);
+const comments = Array.from({length: SIMILAR_PHOTO_COUNT}, createComment);
 
 const createPhoto = () => ({
-  id: getRandomArrayElement(IDS),
-  url: `photos/${getRandomArrayElement(IDS)}.jpg`,
+  id: getRandomArrayElement(ids),
+  url: `photos/${getRandomArrayElement(ids)}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   like: getRandomInteger(15,250),
-  comment: getRandomArrayElement(COMMENTS),
+  comment: getRandomArrayElement(comments),
 });
 
-const similarPhoto = Array.from({length: SIMILAR_PHOTO_COUNT}, createPhoto);
+const similarPhotos = Array.from({length: SIMILAR_PHOTO_COUNT}, createPhoto);
 
-export {similarPhoto};
+export {similarPhotos};

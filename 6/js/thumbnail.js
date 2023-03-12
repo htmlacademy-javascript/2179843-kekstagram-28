@@ -5,16 +5,16 @@ const similarMiniaturesTemplate = document.querySelector('#picture').content.que
 
 const similarMiniatures = similarPhotos;
 
-const NewMiniaturesFragment = document.createDocumentFragment();
+const newMiniaturesFragment = document.createDocumentFragment();
 
 similarMiniatures.forEach(({url, like, comment}) => {
   const MiniatureElement = similarMiniaturesTemplate.cloneNode(true);
   MiniatureElement.querySelector('.picture__img').src = url;
   MiniatureElement.querySelector('.picture__comments').textContent = comment.length;
   MiniatureElement.querySelector('.picture__likes').textContent = like;
-  NewMiniaturesFragment.append(MiniatureElement);
+  newMiniaturesFragment.append(MiniatureElement);
 });
 
-similarNewMiniatures.append(NewMiniaturesFragment);
+similarNewMiniatures.append(newMiniaturesFragment);
 
 export {similarNewMiniatures};

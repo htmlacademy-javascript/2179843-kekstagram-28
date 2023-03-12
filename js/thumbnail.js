@@ -8,11 +8,11 @@ const similarMiniatures = similarPhotos;
 const newMiniaturesFragment = document.createDocumentFragment();
 
 similarMiniatures.forEach(({url, like, comment}) => {
-  const MiniatureElement = similarMiniaturesTemplate.cloneNode(true);
-  MiniatureElement.querySelector('.picture__img').src = url;
-  MiniatureElement.querySelector('.picture__comments').textContent = comment.length;
-  MiniatureElement.querySelector('.picture__likes').textContent = like;
-  newMiniaturesFragment.append(MiniatureElement);
+  const miniatureElement = similarMiniaturesTemplate.cloneNode(true);
+  miniatureElement.querySelector('.picture__img').src = url;
+  miniatureElement.querySelector('.picture__comments').textContent = comment.length;
+  miniatureElement.querySelector('.picture__likes').textContent = like;
+  newMiniaturesFragment.append(miniatureElement);
 });
 
 similarNewMiniatures.append(newMiniaturesFragment);

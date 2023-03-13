@@ -1,6 +1,4 @@
-import {similarPhoto} from './data.js';
+import {similarNewMiniatures} from './thumbnail.js';
 
-console.log(
-  similarPhoto
-);
+console.log(similarNewMiniatures);
 

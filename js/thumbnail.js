@@ -13,6 +13,7 @@ similarMiniatures.forEach(({url, like, comment}) => {
   miniatureElement.querySelector('.picture__comments').textContent = comment.length;
   miniatureElement.querySelector('.picture__likes').textContent = like;
   newMiniaturesFragment.append(miniatureElement);
+  miniatureElement.dataset.miniatureElementId = url;
 });
 
 similarNewMiniatures.append(newMiniaturesFragment);

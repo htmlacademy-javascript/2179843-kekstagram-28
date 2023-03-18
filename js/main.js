@@ -1,4 +1,5 @@
-import {similarNewMiniatures} from './thumbnail.js';
+import { similarPhotos } from './data.js';
+import { renderGallery } from './gallery.js';
 
-console.log(similarNewMiniatures);
+renderGallery(similarPhotos);
 

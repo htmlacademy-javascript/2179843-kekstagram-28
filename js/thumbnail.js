@@ -7,14 +7,20 @@ const similarMiniatures = similarPhotos;
 
 const newMiniaturesFragment = document.createDocumentFragment();
 
-similarMiniatures.forEach(({url, like, comment}) => {
-  const miniatureElement = similarMiniaturesTemplate.cloneNode(true);
-  miniatureElement.querySelector('.picture__img').src = url;
-  miniatureElement.querySelector('.picture__comments').textContent = comment.length;
-  miniatureElement.querySelector('.picture__likes').textContent = like;
-  newMiniaturesFragment.append(miniatureElement);
+similarMiniatures.forEach(({url, likes, description, comments, id}) => {
+  const thumbnail = similarMiniaturesTemplate.cloneNode(true);
+  thumbnail.querySelector('.picture__img').src = url;
+  thumbnail.querySelector('.picture__img').textContent = description;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.dataset.thumbnailId = id;
+  newMiniaturesFragment.appendChild(thumbnail);
+
+  return thumbnail;
 });
 
-similarNewMiniatures.append(newMiniaturesFragment);
+const renderThumbnails = () => {
+  similarNewMiniatures.appendChild(newMiniaturesFragment);
+};
 
-export {similarNewMiniatures};
+export {similarNewMiniatures, similarMiniatures, renderThumbnails};

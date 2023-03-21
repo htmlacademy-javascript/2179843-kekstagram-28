@@ -3,7 +3,11 @@ import {isEscapeKey} from './utils.js';
 const bigPicture = document.querySelector('.big-picture');
 const commentList = bigPicture.querySelector('.social__comments');
 const commentListItem = bigPicture.querySelector('.social__comment');
+const commentsCount = bigPicture.querySelector('.social__comment-count');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
 
+commentsCount.classList.remove('hidden');
+commentsLoader.classList.remove('hidden');
 
 const renderComments = (comments) => {
   commentList.innerHTML = '';
@@ -15,26 +19,45 @@ const renderComments = (comments) => {
   });
 };
 
-const commentsCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
-
-
-const showComments = (comments) => {
-  const count = 5;
-  if(comments.length <= count) {
-    commentsCount.textContent = `${commentList.children.length} из ${commentList.children.length} комментариев`;
-    commentsLoader.classList.add('hidden');
-  }
-};
-
 const renderPictureComments = ({url, description, likes}) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.social__caption').textContent = description;
   bigPicture.querySelector('.likes-count').textContent = likes;
 };
 
-const userModalCloseElement = bigPicture.querySelector('.cancel');
+const showComments = (comments) => {
+  const count = 5;
+  const commentNodes = commentList.querySelectorAll('.social__comment');
+  let commentsToShow = [];
 
+  if (comments.length <= count) {
+    commentsToShow = comments;
+    commentsCount.textContent = `${commentsToShow.length} из ${commentsToShow.length} комментариев`;
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsToShow = comments.slice(0, count);
+    commentsCount.textContent = `${count} из ${comments.length} комментариев`;
+    commentsLoader.classList.remove('hidden');
+  }
+
+  renderComments(commentsToShow);
+
+  commentsLoader.addEventListener('click', () => {
+    const remainingComments = comments.slice(commentNodes.length);
+    const nextComments = remainingComments.slice(0, count);
+    commentsToShow = commentsToShow.concat(nextComments);
+    renderComments(nextComments);
+
+    if (commentNodes.length + nextComments.length >= comments.length) {
+      commentsCount.textContent = `${comments.length} из ${comments.length} комментариев`;
+      commentsLoader.classList.add('hidden');
+    } else {
+      commentsCount.textContent = `${commentNodes.length + nextComments.length} из ${comments.length} комментариев`;
+    }
+  });
+};
+
+const userModalCloseElement = bigPicture.querySelector('.cancel');
 
 const onDocumentEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {

@@ -11,6 +11,7 @@ const renderGallery = () => {
     if (!thumbnail) {
       return;
     }
+
     const picture = similarMiniatures.find(
       (item) => item.id === Number(thumbnail.dataset.thumbnailId)
     );

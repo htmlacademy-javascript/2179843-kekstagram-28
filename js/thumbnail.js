@@ -2,9 +2,7 @@ import {similarPhotos} from './data.js';
 
 const similarNewMiniatures = document.querySelector('.pictures');
 const similarMiniaturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
 const similarMiniatures = similarPhotos;
-
 const newMiniaturesFragment = document.createDocumentFragment();
 
 similarMiniatures.forEach(({url, likes, description, comments, id}) => {

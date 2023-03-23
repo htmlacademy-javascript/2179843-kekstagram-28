@@ -54,7 +54,7 @@ const hasValidSymbols = (tag) => VALID_SYMBOLS.test(tag);
 const hasValidCount = (tags) => tags.length <= MAX_TAGS_COUNT;
 
 const hasUniqueTags = (tags) => {
-  const lowerCaseTags = tags.map((tag) => tag.tolowerCase());
+  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).syze;
 };
 

@@ -5,8 +5,6 @@ import { showAlert } from './utils.js';
 import { hideModal, onFormSubmit } from './form.js';
 import { showErrorMessage, showSuccessMessage } from './messages.js';
 
-renderGallery();
-
 onFormSubmit(async (data) => {
   try {
     await sendData(data);

@@ -26,6 +26,24 @@ const load = (route, errorText, method = Method.GET, body = null) =>
 
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
-const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    'https://25.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFail('Не удалось отправить форму. Попробуйте снова');
+      }
+    })
+    .catch(() => {
+      onFail('Не удалось отправить форму. Попробуйте снова');
+    });
+};
 
 export { getData, sendData};

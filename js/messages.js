@@ -6,7 +6,6 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const successFragment = document.createDocumentFragment();
 const errorFragment = document.createDocumentFragment();
 
-
 const showSuccessMessage = () => {
   const successMessage = successTemplate.cloneNode(true);
   successFragment.appendChild(successMessage);
@@ -19,13 +18,11 @@ const showSuccessMessage = () => {
       sectionSuccess.remove();
     }
   });
-
   sectionSuccess.addEventListener(('click'), (evt) => {
     if (evt.target === buttonSuccess) {
       sectionSuccess.remove();
     }
   });
-
   sectionSuccess.addEventListener(('click'), (evt) => {
     if (evt.target === successInner) {
       sectionSuccess.remove();
@@ -45,13 +42,11 @@ const showErrorMessage = () => {
       sectionError.remove();
     }
   });
-
   sectionError.addEventListener(('click'), (evt) => {
     if (evt.target === buttonError) {
       sectionError.remove();
     }
   });
-
   sectionError.addEventListener(('click'), (evt) => {
     if (evt.target === errorInner) {
       sectionError.remove();

@@ -1,5 +1,13 @@
 const ALERT_SHOW_TIME = 5000;
 
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -7,7 +15,6 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 function createRandomIdFromRangeGenerator (min, max) {
   const previousValues = [];
@@ -24,6 +31,29 @@ function createRandomIdFromRangeGenerator (min, max) {
     return currentValue;
   };
 }
+
+const createRandomIntFromRange = (min, max) => {
+  if (min < 0 || max < 0) {
+    throw new Error('Диапазон должен быть положительным!');
+  }
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const randomizeElements = (arr) => {
+  const Array = arr.slice();
+  const elements = [];
+  const ArrayLength = arr.length;
+  for (let i = 0; i < ArrayLength; i++) {
+    const randomId = createRandomIntFromRange(0, Array.length - 1);
+    elements.push(Array[randomId]);
+    Array.splice(randomId, 1);
+  }
+  return elements;
+};
+
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
 const generateCommentId = createRandomIdFromRangeGenerator(1, 100);
@@ -51,4 +81,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomInteger, generatePhotoId, generateCommentId, getRandomArrayElement, isEscapeKey, showAlert};
+export { debounce, getRandomInteger, generatePhotoId, generateCommentId, getRandomArrayElement, isEscapeKey, showAlert, randomizeElements };

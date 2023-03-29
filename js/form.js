@@ -3,6 +3,7 @@ import { resetEffects } from './effects.js';
 import {showErrorMessage, showSuccessMessage} from './messages.js';
 import {sendData} from './api.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const MAX_TAGS_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const form = document.querySelector('.img-upload__form');
@@ -13,6 +14,19 @@ const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const submitButton = document.querySelector('.img-upload__submit');
+const uploadInput = document.querySelector('.img-upload__input');
+const picPreview = document.querySelector('.img-upload__preview').querySelector('img');
+
+const uploadPicture = () => {
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    picPreview.src = URL.createObjectURL(file);
+  }
+};
 
 const getHashtags = (string) => string.split(' ').filter((item) => item !== '');
 
@@ -54,12 +68,15 @@ const hideModal = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  picPreview.removeAttribute('class');
+  picPreview.removeAttribute('style');
 };
 
-const showModal = () => {
+const showModal = (evt) => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  uploadPicture(evt);
 };
 
 const isFocusOnTextField = () =>
@@ -91,7 +108,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const onFormSubmit = (onSuccess) => {
+const setOnFormSubmit = (onSuccess) => {
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -118,6 +135,6 @@ const onFormSubmit = (onSuccess) => {
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+form.addEventListener('submit', setOnFormSubmit);
 
-export { body, showModal, hideModal, onFormSubmit };
+export { body, showModal, hideModal, setOnFormSubmit };

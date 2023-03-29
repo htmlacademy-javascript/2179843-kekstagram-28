@@ -5,6 +5,14 @@ import { showAlert } from './utils.js';
 import { getFilteredPictures } from './filters.js';
 import { hideModal, setOnFormSubmit } from './form.js';
 
+try {
+  const data = await getData();
+  renderGallery(data);
+  getFilteredPictures(data);
+} catch (err) {
+  showAlert(err.message);
+}
+
 setOnFormSubmit(async (data) => {
   try {
     await sendData(data);
@@ -13,11 +21,3 @@ setOnFormSubmit(async (data) => {
     hideModal();
   }
 });
-
-try {
-  const data = await getData();
-  renderGallery(data);
-  getFilteredPictures(data);
-} catch (err) {
-  showAlert(err.message);
-}

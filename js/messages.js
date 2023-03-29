@@ -13,21 +13,28 @@ const showSuccessMessage = () => {
   const buttonSuccess = document.querySelector('.success__button');
   const sectionSuccess = document.querySelector('.success');
   const successInner = document.querySelector('.success__inner');
+  const handleDocumentClick = (evt) => {
+    if (!sectionSuccess.contains(evt.target)) {
+      sectionSuccess.remove();
+      document.removeEventListener('click', handleDocumentClick);
+    }
+  };
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       sectionSuccess.remove();
     }
   });
-  sectionSuccess.addEventListener(('click'), (evt) => {
-    if (evt.target === buttonSuccess) {
+  sectionSuccess.addEventListener('click', (evt) => {
+    if (evt.target === sectionSuccess || evt.target === buttonSuccess) {
       sectionSuccess.remove();
     }
   });
-  sectionSuccess.addEventListener(('click'), (evt) => {
-    if (evt.target === successInner) {
-      sectionSuccess.remove();
+  successInner.addEventListener('click', (evt) => {
+    if (evt.target === !buttonSuccess && evt.target === successInner) {
+      evt.stopPropagation();
     }
   });
+  document.addEventListener('click', handleDocumentClick);
 };
 
 const showErrorMessage = () => {
@@ -37,21 +44,28 @@ const showErrorMessage = () => {
   const buttonError = document.querySelector('.error__button');
   const sectionError = document.querySelector('.error');
   const errorInner = document.querySelector('.error__inner');
+  const handleDocumentClick = (evt) => {
+    if (!sectionError.contains(evt.target)) {
+      sectionError.remove();
+      document.removeEventListener('click', handleDocumentClick);
+    }
+  };
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       sectionError.remove();
     }
   });
-  sectionError.addEventListener(('click'), (evt) => {
-    if (evt.target === buttonError) {
+  sectionError.addEventListener('click', (evt) => {
+    if (evt.target === sectionError || evt.target === buttonError) {
       sectionError.remove();
     }
   });
-  sectionError.addEventListener(('click'), (evt) => {
-    if (evt.target === errorInner) {
-      sectionError.remove();
+  errorInner.addEventListener('click', (evt) => {
+    if (evt.target === !buttonError && evt.target === errorInner) {
+      evt.stopPropagation();
     }
   });
+  document.addEventListener('click', handleDocumentClick);
 };
 
 export{ showErrorMessage, showSuccessMessage };

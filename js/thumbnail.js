@@ -1,4 +1,4 @@
-import { showBigPicture } from './big_image.js';
+import { showBigPicture } from './big-image.js';
 
 const similarNewMiniatures = document.querySelector('.pictures');
 const similarMiniaturesTemplate = document.querySelector('#picture').content.querySelector('.picture');

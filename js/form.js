@@ -100,7 +100,7 @@ const onFileInputChange = () => {
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButton.textContent = 'Отправляю...';
 };
 
 const unblockSubmitButton = () => {
@@ -125,7 +125,6 @@ const setOnFormSubmit = (onSuccess) => {
         () => {
           unblockSubmitButton();
           showErrorMessage();
-          hideModal();
         },
         new FormData(evt.target),
       );

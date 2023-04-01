@@ -1,13 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-function debounce (callback, timeoutDelay = 500) {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-}
-
 const createRandomIntFromRange = (min, max) => {
   if (min < 0 || max < 0) {
     throw new Error('Диапазон должен быть положительным!');
@@ -52,4 +44,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export { debounce, isEscapeKey, showAlert, randomizeElements };
+export { isEscapeKey, showAlert, randomizeElements };

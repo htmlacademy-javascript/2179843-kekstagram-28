@@ -28,7 +28,7 @@ const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    `${SERVER_URL}`,
     {
       method: 'POST',
       body,

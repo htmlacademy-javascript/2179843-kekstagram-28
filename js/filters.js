@@ -1,4 +1,4 @@
-import { debounce, randomizeElements } from './utils.js';
+import { randomizeElements } from './utils.js';
 import {renderGallery} from './gallery.js';
 
 const PICTURES_COUNT = 10;
@@ -44,27 +44,52 @@ const renderPicturesFilter = (pictures) => {
 
 const getFilteredPictures = (pictures) => {
   filtersElement.classList.remove('img-filters--inactive');
-  defaultButtonElement.addEventListener('click', debounce((evt) => {
+  let timeoutId = null;
+  let lastFilter = null;
+
+  const applyLastFilter = () => {
+    if (lastFilter) {
+      renderPicturesFilter(lastFilter(pictures));
+    }
+    lastFilter = null;
+    timeoutId = null;
+  };
+
+  defaultButtonElement.addEventListener('click', (evt) => {
     removeActiveClass();
     if (evt.target === defaultButtonElement) {
       defaultButtonElement.classList.add('img-filters__button--active');
     }
-    renderPicturesFilter(createDefaultFilter(pictures));
-  }));
-  randomButtonElement.addEventListener('click', debounce((evt) => {
+    lastFilter = createDefaultFilter;
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(applyLastFilter, 500);
+  });
+
+  randomButtonElement.addEventListener('click', (evt) => {
     removeActiveClass();
     if (evt.target === randomButtonElement) {
       randomButtonElement.classList.add('img-filters__button--active');
     }
-    renderPicturesFilter(createRandomFilter(pictures));
-  }));
-  discussedButtonElement.addEventListener('click', debounce((evt) => {
+    lastFilter = createRandomFilter;
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(applyLastFilter, 500);
+  });
+
+  discussedButtonElement.addEventListener('click', (evt) => {
     removeActiveClass();
     if (evt.target === discussedButtonElement) {
       discussedButtonElement.classList.add('img-filters__button--active');
     }
-    renderPicturesFilter(createDiscussedFilter(pictures));
-  }));
+    lastFilter = createDiscussedFilter;
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(applyLastFilter, 500);
+  });
 };
 
 export {getFilteredPictures};

@@ -1,5 +1,5 @@
 import { randomizeElements } from './utils.js';
-import {renderGallery} from './gallery.js';
+import { renderGallery } from './gallery.js';
 
 const PICTURES_COUNT = 10;
 const filtersElement = document.querySelector('.img-filters');
